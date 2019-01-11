@@ -1,3 +1,4 @@
-import TextField from './src/components/field';
+import TextField from "./src/components/field";
+import Label from "./src/components/Label";
 
-export { TextField };
+export { TextField, Label };
