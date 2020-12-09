@@ -125,22 +125,6 @@ export default class TextField extends PureComponent {
     };
   }
 
-  componentDidUpdate(prevProps) {
-    let { error } = this.state;
-
-    if (null != this.props.value) {
-      this.setState({ text: this.props.value });
-    }
-
-    if (this.props.error && this.props.error !== error) {
-      this.setState({ error: this.props.error });
-    }
-
-    if (prevProps.error !== this.props.error) {
-      this.setState({ errored: !!this.props.error });
-    }
-  }
-
   componentDidMount() {
     this.mounted = true;
   }
@@ -154,13 +138,27 @@ export default class TextField extends PureComponent {
     let { focus, focused } = this.state;
 
     if (prevProps.error !== error || focused ^ prevState.focused) {
-      let toValue = this.focusState(prevProps.error, prevState.focused);
+      let toValue = this.focusState(this.props.error, this.state.focused);
 
       Animated.timing(focus, {
         toValue,
         duration,
         useNativeDriver: false,
       }).start(this.onFocusAnimationEnd);
+    }
+
+    error = this.state.error;
+
+    if (null != this.props.value) {
+      this.setState({ text: this.props.value });
+    }
+
+    if (this.props.error && this.props.error !== error) {
+      this.setState({ error: this.props.error });
+    }
+
+    if (prevProps.error !== this.props.error) {
+      this.setState({ errored: !!this.props.error });
     }
   }
 
