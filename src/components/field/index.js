@@ -125,19 +125,19 @@ export default class TextField extends PureComponent {
     };
   }
 
-  componentWillReceiveProps(props) {
+  componentDidUpdate(prevProps) {
     let { error } = this.state;
 
-    if (null != props.value) {
-      this.setState({ text: props.value });
+    if (null != this.props.value) {
+      this.setState({ text: this.props.value });
     }
 
-    if (props.error && props.error !== error) {
-      this.setState({ error: props.error });
+    if (this.props.error && this.props.error !== error) {
+      this.setState({ error: this.props.error });
     }
 
-    if (props.error !== this.props.error) {
-      this.setState({ errored: !!props.error });
+    if (prevProps.error !== this.props.error) {
+      this.setState({ errored: !!this.props.error });
     }
   }
 
